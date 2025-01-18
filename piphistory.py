@@ -5,21 +5,37 @@ from datetime import datetime
 
 HISTORY_FILE = '.piphistory'
 
+# def add_curr():
+#     try:
+#         result = subprocess.run(['pip', 'freeze'], capture_output=True, text=True, check=True)
+#         packages = result.stdout
+#     except subprocess.CalledProcessError as e:
+#         print(f"Error fetching package list: {e}")
+#         return
+
+#     timestamp = datetime.now().isoformat()
+#     version_entry = f"--- Version: {timestamp} ---\n{packages}\n"
+
+#     with open(HISTORY_FILE, 'a') as f:
+#         f.write(version_entry)
+
+#     print(f"Added current package list as version {timestamp}.")
 def add_curr():
     try:
         result = subprocess.run(['pip', 'freeze'], capture_output=True, text=True, check=True)
-        packages = result.stdout
+        packages = sorted(line.strip() for line in result.stdout.splitlines() if line.strip())
     except subprocess.CalledProcessError as e:
         print(f"Error fetching package list: {e}")
         return
 
     timestamp = datetime.now().isoformat()
-    version_entry = f"--- Version: {timestamp} ---\n{packages}\n"
+    version_entry = f"--- Version: {timestamp} ---\n" + "\n".join(packages) + "\n\n"
 
     with open(HISTORY_FILE, 'a') as f:
         f.write(version_entry)
 
     print(f"Added current package list as version {timestamp}.")
+
 
 def parse_history():
     if not os.path.exists(HISTORY_FILE):
@@ -97,6 +113,81 @@ def view_diff(version1=None, version2=None):
     if not diff_added and not diff_removed:
         print("No differences found.")
 
+# def revert(version=None):
+#     versions = parse_history()
+#     if not versions:
+#         return
+
+#     sorted_versions = sorted(versions.keys())
+#     if version and version not in versions:
+#         print(f"Version '{version}' not found.")
+#         return
+#     elif not version:
+#         # If no version is specified, revert to the latest version
+#         if len(sorted_versions) < 1:
+#             print("No versions to revert to.")
+#             return
+#         version = sorted_versions[-1]
+
+#     confirmation = input(f"Are you sure you want to revert to version '{version}'? This will delete all history entries after this version. (y/N): ")
+#     if confirmation.lower() != 'y':
+#         print("Revert canceled.")
+#         return
+
+#     target_packages = versions[version]
+#     current_packages = get_current_packages()
+
+#     # Calculate differences
+#     packages_to_uninstall = current_packages - target_packages
+#     packages_to_install = target_packages - current_packages
+
+#     print("\nPackages to uninstall:")
+#     for pkg in sorted(packages_to_uninstall):
+#         print(f"  - {pkg}")
+
+#     print("\nPackages to install:")
+#     for pkg in sorted(packages_to_install):
+#         print(f"  + {pkg}")
+
+#     proceed = input("\nProceed with uninstalling and installing the above packages? (y/N): ")
+#     if proceed.lower() != 'y':
+#         print("Revert operation canceled.")
+#         return
+
+#     # Uninstall packages
+#     if packages_to_uninstall:
+#         try:
+#             print("\nUninstalling packages...")
+#             subprocess.run(['pip', 'uninstall', '-y'] + list(packages_to_uninstall), check=True)
+#             print("Uninstallation completed.")
+#         except subprocess.CalledProcessError as e:
+#             print(f"Error during uninstallation: {e}")
+#             return
+
+#     # Install packages
+#     if packages_to_install:
+#         try:
+#             print("\nInstalling packages...")
+#             subprocess.run(['pip', 'install'] + list(packages_to_install), check=True)
+#             print("Installation completed.")
+#         except subprocess.CalledProcessError as e:
+#             print(f"Error during installation: {e}")
+#             return
+
+#     # Truncate history file after the specified version
+#     new_history = ""
+#     for v in sorted_versions:
+#         new_history += f"--- Version: {v} ---\n"
+#         for pkg in versions[v]:
+#             new_history += f"{pkg}\n"
+#         new_history += "\n"
+#         if v == version:
+#             break
+
+#     with open(HISTORY_FILE, 'w') as f:
+#         f.write(new_history)
+
+#     print(f"\nReverted to version '{version}'. All subsequent history entries have been deleted.")
 def revert(version=None):
     versions = parse_history()
     if not versions:
@@ -104,9 +195,10 @@ def revert(version=None):
 
     sorted_versions = sorted(versions.keys())
     if version and version not in versions:
-        print(f"Version {version} not found.")
+        print(f"Version '{version}' not found.")
         return
     elif not version:
+        # If no version is specified, revert to the latest version
         if len(sorted_versions) < 1:
             print("No versions to revert to.")
             return
@@ -118,29 +210,64 @@ def revert(version=None):
         return
 
     target_packages = versions[version]
-    try:
-        with open('requirements_temp.txt', 'w') as req_file:
-            for pkg in target_packages:
-                req_file.write(f"{pkg}\n")
-        subprocess.run(['pip', 'install', '-r', 'requirements_temp.txt'], check=True)
-        os.remove('requirements_temp.txt')
-    except subprocess.CalledProcessError as e:
-        print(f"Error during pip install: {e}")
+    current_packages = get_current_packages()
+
+    # Calculate differences
+    packages_to_uninstall = current_packages - target_packages
+    packages_to_install = target_packages - current_packages
+
+    if not packages_to_uninstall and not packages_to_install:
+        print("No differences found between the current state and the target version. No actions needed.")
         return
 
+    print("\nPackages to uninstall:")
+    for pkg in sorted(packages_to_uninstall):
+        print(f"  - {pkg}")
+
+    print("\nPackages to install:")
+    for pkg in sorted(packages_to_install):
+        print(f"  + {pkg}")
+
+    proceed = input("\nProceed with uninstalling and installing the above packages? (y/N): ")
+    if proceed.lower() != 'y':
+        print("Revert operation canceled.")
+        return
+
+    # Uninstall packages
+    if packages_to_uninstall:
+        try:
+            print("\nUninstalling packages...")
+            subprocess.run(['pip', 'uninstall', '-y'] + sorted(packages_to_uninstall), check=True)
+            print("Uninstallation completed.")
+        except subprocess.CalledProcessError as e:
+            print(f"Error during uninstallation: {e}")
+            return
+
+    # Install packages
+    if packages_to_install:
+        try:
+            print("\nInstalling packages...")
+            subprocess.run(['pip', 'install'] + sorted(packages_to_install), check=True)
+            print("Installation completed.")
+        except subprocess.CalledProcessError as e:
+            print(f"Error during installation: {e}")
+            return
+
+    # Truncate history file after the specified version
     new_history = ""
     for v in sorted_versions:
         new_history += f"--- Version: {v} ---\n"
-        for pkg in versions[v]:
-            new_history += f"{pkg}\n"
-        new_history += "\n"
+        sorted_pkgs = sorted(versions[v])
+        new_history += "\n".join(sorted_pkgs) + "\n\n"
         if v == version:
             break
 
     with open(HISTORY_FILE, 'w') as f:
         f.write(new_history)
 
-    print(f"Reverted to version '{version}'. All subsequent history entries have been deleted.")
+    print(f"\nReverted to version '{version}'. All subsequent history entries have been deleted.")
+
+
 
 def main():
     parser = argparse.ArgumentParser(description='piphistory: Track pip package history.')
