@@ -5,22 +5,11 @@ from datetime import datetime
 
 HISTORY_FILE = '.piphistory'
 
-# def add_curr():
-#     try:
-#         result = subprocess.run(['pip', 'freeze'], capture_output=True, text=True, check=True)
-#         packages = result.stdout
-#     except subprocess.CalledProcessError as e:
-#         print(f"Error fetching package list: {e}")
-#         return
-
-#     timestamp = datetime.now().isoformat()
-#     version_entry = f"--- Version: {timestamp} ---\n{packages}\n"
-
-#     with open(HISTORY_FILE, 'a') as f:
-#         f.write(version_entry)
-
-#     print(f"Added current package list as version {timestamp}.")
 def add_curr():
+    """
+    Adds the current list of installed packages to the history with a timestamp.
+    """
+
     try:
         result = subprocess.run(['pip', 'freeze'], capture_output=True, text=True, check=True)
         packages = sorted(line.strip() for line in result.stdout.splitlines() if line.strip())
@@ -38,6 +27,10 @@ def add_curr():
 
 
 def parse_history():
+    """
+    Parses the history file and returns a dictionary of versions with their corresponding packages.
+    """
+
     if not os.path.exists(HISTORY_FILE):
         print("No history found. Use 'add_curr' to create a history entry.")
         return []
@@ -60,6 +53,10 @@ def parse_history():
     return parsed_versions
 
 def get_current_packages():
+    """
+    Retrieves the current set of installed packages.
+    """
+
     try:
         result = subprocess.run(['pip', 'freeze'], capture_output=True, text=True, check=True)
         packages = set(line.strip() for line in result.stdout.splitlines() if line.strip())
@@ -69,6 +66,10 @@ def get_current_packages():
         return set()
 
 def view_diff(version1=None, version2=None):
+    """
+    Displays the differences between two specified versions or between a version and the current state.
+    """
+
     versions = parse_history()
     if not versions:
         return
@@ -113,82 +114,11 @@ def view_diff(version1=None, version2=None):
     if not diff_added and not diff_removed:
         print("No differences found.")
 
-# def revert(version=None):
-#     versions = parse_history()
-#     if not versions:
-#         return
-
-#     sorted_versions = sorted(versions.keys())
-#     if version and version not in versions:
-#         print(f"Version '{version}' not found.")
-#         return
-#     elif not version:
-#         # If no version is specified, revert to the latest version
-#         if len(sorted_versions) < 1:
-#             print("No versions to revert to.")
-#             return
-#         version = sorted_versions[-1]
-
-#     confirmation = input(f"Are you sure you want to revert to version '{version}'? This will delete all history entries after this version. (y/N): ")
-#     if confirmation.lower() != 'y':
-#         print("Revert canceled.")
-#         return
-
-#     target_packages = versions[version]
-#     current_packages = get_current_packages()
-
-#     # Calculate differences
-#     packages_to_uninstall = current_packages - target_packages
-#     packages_to_install = target_packages - current_packages
-
-#     print("\nPackages to uninstall:")
-#     for pkg in sorted(packages_to_uninstall):
-#         print(f"  - {pkg}")
-
-#     print("\nPackages to install:")
-#     for pkg in sorted(packages_to_install):
-#         print(f"  + {pkg}")
-
-#     proceed = input("\nProceed with uninstalling and installing the above packages? (y/N): ")
-#     if proceed.lower() != 'y':
-#         print("Revert operation canceled.")
-#         return
-
-#     # Uninstall packages
-#     if packages_to_uninstall:
-#         try:
-#             print("\nUninstalling packages...")
-#             subprocess.run(['pip', 'uninstall', '-y'] + list(packages_to_uninstall), check=True)
-#             print("Uninstallation completed.")
-#         except subprocess.CalledProcessError as e:
-#             print(f"Error during uninstallation: {e}")
-#             return
-
-#     # Install packages
-#     if packages_to_install:
-#         try:
-#             print("\nInstalling packages...")
-#             subprocess.run(['pip', 'install'] + list(packages_to_install), check=True)
-#             print("Installation completed.")
-#         except subprocess.CalledProcessError as e:
-#             print(f"Error during installation: {e}")
-#             return
-
-#     # Truncate history file after the specified version
-#     new_history = ""
-#     for v in sorted_versions:
-#         new_history += f"--- Version: {v} ---\n"
-#         for pkg in versions[v]:
-#             new_history += f"{pkg}\n"
-#         new_history += "\n"
-#         if v == version:
-#             break
-
-#     with open(HISTORY_FILE, 'w') as f:
-#         f.write(new_history)
-
-#     print(f"\nReverted to version '{version}'. All subsequent history entries have been deleted.")
 def revert(version=None):
+    """
+    Reverts the installed packages to a specified version from the history.
+    """
+
     versions = parse_history()
     if not versions:
         return
@@ -267,9 +197,30 @@ def revert(version=None):
 
     print(f"\nReverted to version '{version}'. All subsequent history entries have been deleted.")
 
+def pip_command(pip_args):
+    """
+    Executes a pip command with the provided arguments and adds a new version to the history upon success.
+    """
+    
+    if not pip_args:
+        print("No pip command provided.")
+        return
 
+    try:
+        print(f"\nExecuting pip command: pip {' '.join(pip_args)}")
+        subprocess.run(['pip'] + pip_args, check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error executing pip command: {e}")
+        return
+
+    # After successful pip command, add a new history entry
+    print("\nAdding new package list to history...")
+    add_curr()
 
 def main():
+    """
+    Main function to parse command-line arguments and execute corresponding functions.
+    """
     parser = argparse.ArgumentParser(description='piphistory: Track pip package history.')
     subparsers = parser.add_subparsers(dest='command', help='Available commands')
 
@@ -285,6 +236,10 @@ def main():
     parser_revert = subparsers.add_parser('revert', help='Revert to a specific package version')
     parser_revert.add_argument('version', nargs='?', default=None, help='Version to revert to')
 
+    # pip command
+    parser_pip = subparsers.add_parser('pip', help='Execute a pip command and track changes')
+    parser_pip.add_argument('pip_args', nargs=argparse.REMAINDER, help='Arguments for pip command')
+
     args = parser.parse_args()
 
     if args.command == 'add_curr':
@@ -293,6 +248,8 @@ def main():
         view_diff(args.version1, args.version2)
     elif args.command == 'revert':
         revert(args.version)
+    elif args.command == 'pip':
+        pip_command(args.pip_args)
     else:
         parser.print_help()
 
