@@ -1,24 +1,24 @@
-[build-system]
-requires = ["setuptools>=42", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "piplog"
-version = "0.1.0"
-description = "Track pip package history and revert to previous states"
+version = "0.0.1"
 authors = [
-  { name="Alicia Sun", email="asun0102@gmail.com" },\
+  { name="Alicia Sun", email="asun0102@gmail.com" },
   { name="Kenneth Xiao", email="kdxiao@uwaterloo.ca" }
 ]
+description = "Logs your pip install history"
 readme = "README.md"
-license = "MIT"
-requires-python = ">=3.7"
-keywords = ["pip", "history", "dependencies"]
+requires-python = ">=3.8"
 classifiers = [
-  "Programming Language :: Python :: 3",
-  "License :: OSI Approved :: MIT License"
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
 ]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
 
-[project.scripts]
-piphistory = "piphistory:main"
+[project.urls]
+Homepage = "https://github.com/Alicia-Sun/piphistory"
+Issues = "https://github.com/Alicia-Sun/piphistory/issues"
 
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
