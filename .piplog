@@ -261,3 +261,7 @@ yapf==0.40.2
 yarl==1.14.0
 zipp==3.20.2
 
+--- Version: 2025-01-18T18:05:27.907302 ---
+piplog @ file:///Users/user/Projects/piphistory
+setuptools==75.8.0
+
