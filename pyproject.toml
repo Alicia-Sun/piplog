@@ -15,8 +15,8 @@ classifiers = [
 license = { text = "MIT" }
 
 [project.urls]
-Homepage = "https://github.com/Alicia-Sun/piphistory"
-Issues = "https://github.com/Alicia-Sun/piphistory/issues"
+Homepage = "https://github.com/Alicia-Sun/piplog"
+Issues = "https://github.com/Alicia-Sun/piplog/issues"
 
 [project.scripts]
 piplog = "piplog.piplog:main"
