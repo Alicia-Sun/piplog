@@ -9,7 +9,7 @@ const Usage = () => (
             </p>
             <h2>Save the Current Package List</h2>
             <pre className="command-block">
-            <code>$ python piplog.py save</code>
+            <code>$ piplog save</code>
             </pre>
             <p>This command creates a timestamped record of all installed packages at the current moment. It writes this record to a file called ".piplog" where it can be viewed.</p>
             <h2>Compare Package Versions</h2>
@@ -20,7 +20,7 @@ const Usage = () => (
             </p>
             <h2>Restore to a Previous Version</h2>
             <pre className="command-block">
-            <code>$ python piplog.py restore [version]</code>
+            <code>$ piplog restore [version]</code>
             </pre>
             <p>
             This command restores the packages and versions to the specified version. [version] is optional and if not specified, simply reverts one version back.

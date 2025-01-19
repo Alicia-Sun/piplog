@@ -44,7 +44,7 @@ Restored to version '2025-01-18T23:08:46.384920'. All subsequent history entries
                 </p>
                 <h2>Save the Current Package List</h2>
                 <pre className="command-block">
-                    <code>$ python piplog.py save</code>
+                    <code>$ piplog save</code>
                 </pre>
                 {exampleSteps.map((step, index) => (
                     <div key={index}>
