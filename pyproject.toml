@@ -18,6 +18,10 @@ license = { text = "MIT" }
 Homepage = "https://github.com/Alicia-Sun/piphistory"
 Issues = "https://github.com/Alicia-Sun/piphistory/issues"
 
+[project.scripts]
+piplog = "piplog:main"
+
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
+
