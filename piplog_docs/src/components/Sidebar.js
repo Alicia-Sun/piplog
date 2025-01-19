@@ -7,9 +7,10 @@ const Sidebar = () => (
     <div className="sidebar-heading">Contents
     </div>
     <div className="list-group list-group-flush">
-      <Link to="/docs/getting-started" className="list-group-item">Getting Started</Link>
-      <Link to="/docs/api-reference" className="list-group-item">API Reference</Link>
-      <Link to="/docs/examples" className="list-group-item">Examples</Link>
+        <Link to="/" className="list-group-item">Home</Link>
+        <Link to="/docs/getting-started" className="list-group-item">Getting Started</Link>
+        <Link to="/docs/api-reference" className="list-group-item">API Reference</Link>
+        <Link to="/docs/examples" className="list-group-item">Examples</Link>
     </div>
   </div>
 );
