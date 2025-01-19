@@ -5,7 +5,7 @@ const Usage = () => (
         <div>
             <h1>Usage</h1>
             <p>
-            PipLog supports various commands to manage package versions. Below are the available operations and their specifications:
+            piplog supports various commands to manage package versions. Below are the available operations and their specifications:
             </p>
             <h2>Save the Current Package List</h2>
             <pre className="command-block">
