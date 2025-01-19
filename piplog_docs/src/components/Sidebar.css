@@ -1,23 +1,20 @@
-/* Sidebar styles */
 #sidebar-wrapper {
     background-color: #303446; /* Sidebar background */
     color: white; /* Sidebar text color */
     width: 250px; /* Fixed sidebar width */
     min-height: 100vh; /* Full-height sidebar */
-    position: fixed; /* Keep sidebar fixed to the left */
+    position: fixed; /* Keep sidebar fixed */
     top: 0;
-    left: 0;
+    left: 50px; /* Move the sidebar 50px to the right */
     display: flex;
     flex-direction: column; /* Stack items vertically */
-    border-right: 1px solid white; /* Optional: Border for sidebar */
+    padding-top: 80px;
 }
 
 .sidebar-heading {
     font-size: 2.0rem;
     font-weight: bold;
     padding: 15px; /* Add spacing for header */
-    border-bottom: 1px solid white; /* Optional: Divider */
-    text-align: center;
 }
 
 .list-group {
@@ -39,15 +36,8 @@
 }
 
 .list-group-item:hover {
-    background-color: #303446; /* Slightly lighter hover effect */
+    background-color: #3a4058; /* Slightly lighter hover effect */
     color: white; /* Ensure text remains white */
-}
-
-/* Main content styles */
-.main-body {
-    margin-left: 250px; /* Offset by sidebar width */
-    padding: 20px;
-    flex-grow: 1;
 }
 
 footer {
