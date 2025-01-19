@@ -43,9 +43,6 @@ Restored to version '2025-01-18T23:08:46.384920'. All subsequent history entries
                     Here is a practical example of how to use piplog:
                 </p>
                 <h2>Save the Current Package List</h2>
-                <pre className="command-block">
-                    <code>$ piplog save</code>
-                </pre>
                 {exampleSteps.map((step, index) => (
                     <div key={index}>
                         <CommandBlock>{step.command}</CommandBlock>
