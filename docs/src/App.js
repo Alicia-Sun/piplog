@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import GettingStarted from './pages/GettingStarted';
+import Installation from './pages/Installation';
 import Examples from './pages/Examples';
 import Usage from './pages/Usage';
 
@@ -17,7 +17,7 @@ const App = () => (
         <div className="main-body">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/getting-started" element={<GettingStarted />} />
+            <Route path="/installation" element={<Installation />} />
             <Route path="/examples" element={<Examples />} />
             <Route path="/usage" element={<Usage />} />
           </Routes>

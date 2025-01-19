@@ -1,5 +1,4 @@
 import React from 'react';
-import './Usage.css';
 
 const Usage = () => (
     <div className="middle-container">

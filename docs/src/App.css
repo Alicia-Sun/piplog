@@ -42,3 +42,14 @@ p {
   background-color: #303446; /* Sidebar background */
   color: white;
 }
+
+
+.command-block {
+  background-color: #2b2f40; /* Slightly darker than the main background */
+  color: white; /* Ensure text is readable */
+  padding: 10px 15px; /* Add padding for better spacing */
+  border-radius: 5px; /* Optional: Rounded corners */
+  font-family: monospace; /* Use monospace font for commands */
+  margin: 10px 0; /* Add spacing between blocks */
+  overflow-x: auto; /* Allow horizontal scrolling for long commands */
+}
