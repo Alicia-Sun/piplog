@@ -21,6 +21,7 @@ body {
   display: flex; /* Flex layout to center content */
   justify-content: center; /* Center content horizontally */
   align-items: left; /* Center content vertically */
+  max-width: 800px;
 }
 
 h1 {
@@ -52,4 +53,5 @@ p {
   font-family: monospace; /* Use monospace font for commands */
   margin: 10px 0; /* Add spacing between blocks */
   overflow-x: auto; /* Allow horizontal scrolling for long commands */
+  white-space: pre-wrap;
 }

@@ -3,6 +3,7 @@ import './Home.css';
 import snakeImage from '../images/snake.png';
 
 const Home = () => (
+  <div className="middle-container">
   <div>
     <h1>
         <img 
@@ -15,6 +16,7 @@ const Home = () => (
     <p>
     View our source code <a href="https://github.com/Alicia-Sun/piplog" target="_blank" rel="noopener noreferrer" style={{ color: '#abdbe3' }}>here</a>.
     </p>
+  </div>
   </div>
 );
 
