@@ -6,45 +6,36 @@ const Usage = () => (
         <div>
             <h1>Usage</h1>
             <p>
-            PipLog supports various commands to manage package versions. Below are the available commands and their functions:
+            PipLog supports various commands to manage package versions. Below are the available operations and their specifications:
             </p>
-            <h2>Commands</h2>
-            <ul>
-            <li>
-                <strong>save:</strong> Save the current list of installed packages with a timestamp.
-                <pre>
-                <code>python piplog.py save</code>
-                </pre>
-            </li>
-            <li>
-                <strong>diff:</strong> Compare two versions or a version against the current state.
-                <pre>
-                <code>python piplog.py diff &lt;version1&gt; &lt;version2&gt;</code>
-                </pre>
-                <p>Example:</p>
-                <pre>
-                <code>python piplog.py diff 2023-01-01T12:00:00</code>
-                </pre>
-            </li>
-            <li>
-                <strong>restore:</strong> Restore packages to a specified version.
-                <pre>
-                <code>python piplog.py restore &lt;version&gt;</code>
-                </pre>
-            </li>
-            <li>
-                <strong>clear:</strong> Clear the entire package history.
-                <pre>
-                <code>python piplog.py clear</code>
-                </pre>
-            </li>
-            <li>
-                <strong>pip:</strong> Execute a pip command while saving the new package state.
-                <pre>
-                <code>python piplog.py pip install numpy</code>
-                </pre>
-            </li>
-            </ul>
+            <h2>Save the Current Package List</h2>
+            <pre className="command-block">
+            <code>$ python piplog.py save</code>
+            </pre>
+            <p>This command creates a timestamped record of all installed packages at the current moment. It writes this record to a file called ".piplog" where it can be viewed.</p>
+            <h2>Compare Package Versions</h2>
+            <pre className="command-block">
+            <code>$ piplog diff [version1] [version2]</code>
+            </pre>
+            <p>Similar to git diff, you can view package discrepencies between versions with piplog diff. [version1] and [version2] are optional arguments that can be passed in. If no additional arguments are given, it automatically compares the differences between the current and previous version. If only [version1] is given, it prints the package differences between [version1] and the current version. If both are given, it prints the differences between the two. 
+            </p>
+            <h2>Restore to a Previous Version</h2>
+            <pre className="command-block">
+            <code>$ python piplog.py restore [version]</code>
+            </pre>
+            <p>
+            This command restores the packages and versions to the specified version. [version] is optional and if not specified, simply reverts one version back.
+            </p>
+            <h2>Execute a Pip Command with History</h2>
+            <pre className="command-block">
+            <code>$ piplog pip ...</code>
+            </pre>
+            <p>This is a wrapper for pip. It executes the pip command but saves a snapshot of the packages after the pip operation in the version history.</p>
+            <h2>Clear piplog History</h2>
+            <pre className="command-block">
+            <code>$ piplog clear</code>
+            </pre>
+            <p>Clears the file that piplog uses to track version history.</p>
         </div>
     </div>
 );
