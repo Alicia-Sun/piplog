@@ -4,8 +4,8 @@
     width: 250px; /* Fixed sidebar width */
     min-height: 100vh; /* Full-height sidebar */
     position: fixed; /* Keep sidebar fixed */
-    top: 0;
-    left: 50px; /* Move the sidebar 50px to the right */
+    top: 50px;
+    left: 200px; /* Move the sidebar 50px to the right */
     display: flex;
     flex-direction: column; /* Stack items vertically */
     padding-top: 80px;
@@ -30,14 +30,14 @@
     background-color: #303446; /* Match sidebar background */
     color: white; /* Link text color */
     padding: 15px 20px;
-    font-size: 1.0rem;
+    font-size: 1.5rem;
     text-decoration: none; /* Remove underline */
     display: block;
 }
 
 .list-group-item:hover {
-    background-color: #3a4058; /* Slightly lighter hover effect */
     color: white; /* Ensure text remains white */
+    text-decoration: underline; /* Add underline on hover */
 }
 
 footer {

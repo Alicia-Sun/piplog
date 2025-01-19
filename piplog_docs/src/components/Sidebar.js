@@ -8,9 +8,9 @@ const Sidebar = () => (
     </div>
     <div className="list-group list-group-flush">
         <Link to="/" className="list-group-item">Home</Link>
-        <Link to="/docs/getting-started" className="list-group-item">Getting Started</Link>
-        <Link to="/docs/api-reference" className="list-group-item">API Reference</Link>
-        <Link to="/docs/examples" className="list-group-item">Examples</Link>
+        <Link to="/getting-started" className="list-group-item">Getting Started</Link>
+        <Link to="/usage" className="list-group-item">Usage</Link>
+        <Link to="/examples" className="list-group-item">Examples</Link>
     </div>
   </div>
 );

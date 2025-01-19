@@ -1,25 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap');
 
-/* Home Page Styles */
-h1 {
-    font-size: 6.5rem; /* Make the h1 really big */
-    font-weight: bold;
-    text-align: center; /* Center the heading */
-    margin-top: 20px; /* Add spacing above */
-    background-color: #303446; /* Sidebar background */
-    color: white;
-    font-family: 'Prompt', sans-serif;
-}
 
-p {
-    font-size: 1.2rem; /* Slightly larger font for the paragraph */
-    line-height: 1.8; /* Improve readability */
-    text-align: center; /* Center align the text */
-    max-width: 800px; /* Limit the width of the paragraph */
-    margin: 20px auto; /* Center the paragraph on the page */
-    background-color: #303446; /* Sidebar background */
-    color: white;
-}
 
 .logo {
     width: 100px; /* Adjust image width */

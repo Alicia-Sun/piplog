@@ -9,9 +9,9 @@ const Home = () => (
             src={snakeImage}
             className="logo" 
         /> 
-        PipLog
+        piplog
     </h1>
-    <p>Welcome to PipLog's documentation. PipLog is an easy to use version control for your Python packages. Explore guides, examples, and API references to get started.</p>
+    <p>Welcome to piplog's documentation. piplog is an easy to use version control for your Python packages. Explore guides, examples, and API references to get started.</p>
   </div>
 );
 

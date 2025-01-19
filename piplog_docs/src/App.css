@@ -4,3 +4,41 @@ body {
   font-family: "Garamond", serif; /* Set font to Garamond */
   margin: 0;
 }
+
+.main-body {
+  color: white; /* Ensure content text is readable */
+  background-color: #303446; /* Match the background */
+  min-height: 100vh; /* Ensure content stretches full height */
+  
+}
+
+.middle-container {
+  margin-left: 200px;
+  margin-right: 200px;
+  color: white; /* Ensure text is readable */
+  background-color: #303446; /* Match the background color */
+  min-height: 100vh; /* Ensure the container stretches to the full height of the viewport */
+  display: flex; /* Flex layout to center content */
+  justify-content: center; /* Center content horizontally */
+  align-items: left; /* Center content vertically */
+}
+
+h1 {
+  font-size: 6.5rem; /* Make the h1 really big */
+  font-weight: bold;
+  text-align: center; /* Center the heading */
+  margin-top: 20px; /* Add spacing above */
+  background-color: #303446; /* Sidebar background */
+  color: white;
+  font-family: 'Prompt', sans-serif;
+}
+
+p {
+  font-size: 1.2rem; /* Slightly larger font for the paragraph */
+  line-height: 1.8; /* Improve readability */
+  text-align: left; /* Center align the text */
+  max-width: 800px; /* Limit the width of the paragraph */
+  margin: 20px auto; /* Center the paragraph on the page */
+  background-color: #303446; /* Sidebar background */
+  color: white;
+}

@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import Docs from './pages/Docs';
-import About from './pages/About';
+import GettingStarted from './pages/GettingStarted';
+import Examples from './pages/Examples';
+import Usage from './pages/Usage';
+
 import "./App.css";
 
 const App = () => (
@@ -15,8 +17,9 @@ const App = () => (
         <div className="main-body">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/docs" element={<Docs />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/getting-started" element={<GettingStarted />} />
+            <Route path="/examples" element={<Examples />} />
+            <Route path="/usage" element={<Usage />} />
           </Routes>
         </div>
       </div>
