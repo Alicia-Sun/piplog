@@ -4,12 +4,13 @@
     width: 250px; /* Fixed sidebar width */
     min-height: 100vh; /* Full-height sidebar */
     position: fixed; /* Keep sidebar fixed */
-    top: 50px;
-    left: 200px; /* Move the sidebar 50px to the right */
+    top: 10%;
+    left: 15%; /* Move the sidebar 50px to the right */
     display: flex;
     flex-direction: column; /* Stack items vertically */
     padding-top: 80px;
 }
+
 
 .sidebar-heading {
     font-size: 2.0rem;
